@@ -41,6 +41,8 @@ for (file in files)
     stop( "Error, file ",file," not found. Exiting." ) 
   }
 
+message("All files found. Now load and clean data. This may take a while...")
+
 ## Load the feature labels. These will become the column names for the feature datasets.
 tbl_feature_labels <- read.table( file_feature_labels, stringsAsFactors = F, head=F, sep=" ",
                             col.names = c("ID", "label") )
@@ -91,4 +93,4 @@ tbl_summ <- summarise_each( tbl, "mean" )
 ## Write results to file. Results can be read via read.csv( "cleaned_data.txt" ) )
 write.csv(tbl_summ, file_result, row.names=F )
 
-print( paste( "Cleaning done. Results written to", file_result) )
+message( paste( "Cleaning done. Results written to", file_result,".") )
