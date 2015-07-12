@@ -1,9 +1,18 @@
+## This script is used to read in, merge, and summarize the UCI dataset on human activity recognition
+## using smart phones
+## (see here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
+## This is the course project for the coursera class on getting and cleaning data.
+## Data are read in and combined to one data set containing subject ID, activity, and the measured features.
+## Only features measuring a mean or std are selected.
+## Finally, the features are averaged by subject and activity and the results are printed to a file.
+## The results are explained in CodeBook.md
+
 library("dplyr")
 
 ## This is where we will put the results
 file_result <- file.path(getwd(), "cleaned_data.txt")
 
-## This is the directory containing the data files##
+## This is the directory containing the data files
 datadir <- file.path(getwd(), "UCI HAR Dataset")
 
 ## Make sure the directory is there 
@@ -79,7 +88,7 @@ tbl <- group_by( tbl, subject.id, activity )
 ## Average features for each subject & activity
 tbl_summ <- summarise_each( tbl, "mean" ) 
 
-## Write results to file. Results can be read via read.csv( "cleaned_data.csv" ) )
+## Write results to file. Results can be read via read.csv( "cleaned_data.txt" ) )
 write.csv(tbl_summ, file_result, row.names=F )
 
 print( paste( "Cleaning done. Results written to", file_result) )
